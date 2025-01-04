@@ -12,6 +12,7 @@ def main():
     print("Screen height: 720")
     
     pygame.init()
+    #pygame.mixer.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     pygame.font.init()
@@ -37,6 +38,8 @@ def main():
 
     score = 0
 
+    #sound = pygame.mixer.Sound("hitmarker_2.mp3")
+
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
         for d in drawable:
@@ -52,6 +55,7 @@ def main():
                     s.kill()
                     a.split()
                     score += 5
+                    #sound.play()
         screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
         pygame.display.flip()
         for event in pygame.event.get():
