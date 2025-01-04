@@ -14,7 +14,7 @@ class Asteroid(CircleShape):
        
     def draw(self, screen):
         if not self.is_hit_marked_displayed:
-            pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius, 2)
+            pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius)
         else:
             image = pygame.image.load("cod_hitmarker.png")
             image = pygame.transform.scale(image, (100, 100))
