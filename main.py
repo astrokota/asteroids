@@ -1,9 +1,12 @@
 import pygame
+import warnings
 from constants import *
 from circleshape import *
 from player import *
 from asteroidfield import *
 from shot import *
+
+warnings.filterwarnings("ignore", message = ".*known.*")
 
 def main():
 
@@ -53,7 +56,7 @@ def main():
             for s in player.shots:
                 if s.check_collision(a):
                     s.kill()
-                    a.split()
+                    a.split(dt)
                     score += 5
                     #sound.play()
         screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))

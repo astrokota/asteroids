@@ -1,5 +1,6 @@
-from circleshape import *
+import pygame
 import random
+from circleshape import *
 from constants import *
 
 class Asteroid(CircleShape):
@@ -8,15 +9,27 @@ class Asteroid(CircleShape):
         self.color_r = random.uniform(50, 255)
         self.color_g = random.uniform(50, 255)
         self.color_b = random.uniform(50, 255)
+        self.is_hit_marked_displayed = False
+        self.killed_at = 0
        
     def draw(self, screen):
-        pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius, 2)
+        if not self.is_hit_marked_displayed:
+            pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius, 2)
+        else:
+            image = pygame.image.load("cod_hitmarker.png")
+            image = pygame.transform.scale(image, (100, 100))
+            screen.blit(image, (self.position.x, self.position.y))
+
 
     def update(self, dt):
+        if self.is_hit_marked_displayed and self.killed_at > dt - 1.5:
+            self.kill()
+            return
         self.position += self.velocity * dt
 
-    def split(self):
-        self.kill()
+    def split(self, dt):
+        self.killed_at = dt
+        self.is_hit_marked_displayed = True
         if self.radius <= ASTEROID_MIN_RADIUS:
             return
         angle = random.uniform(20, 50)
