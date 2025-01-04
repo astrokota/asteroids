@@ -42,6 +42,10 @@ def main():
             if player.check_collision(a):
                 print("Game over!")
                 return
+            for s in player.shots:
+                if s.check_collision(a):
+                    s.kill()
+                    a.split()
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
