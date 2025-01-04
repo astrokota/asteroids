@@ -5,9 +5,12 @@ from constants import *
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
         super().__init__(x, y, radius)
+        self.color_r = random.uniform(50, 255)
+        self.color_g = random.uniform(50, 255)
+        self.color_b = random.uniform(50, 255)
        
     def draw(self, screen):
-        pygame.draw.circle(screen, (255, 255, 255), self.position, self.radius, 2)
+        pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius, 2)
 
     def update(self, dt):
         self.position += self.velocity * dt
