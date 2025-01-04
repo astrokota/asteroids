@@ -1,6 +1,6 @@
-from constants import *
-from circleshape import *
-from shot import *
+from .constants import *
+from .circleshape import *
+from .shot import *
 
 class Player(CircleShape):
     def __init__(self, x, y, shots_group):
