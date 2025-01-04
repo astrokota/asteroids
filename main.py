@@ -57,7 +57,7 @@ def main():
             for s in player.shots:
                 if s.check_collision(a):
                     s.kill()
-                    a.split(dt)
+                    a.split(dt, asteroids)
                     score += 5
                     #sound.play()
         screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
