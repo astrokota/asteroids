@@ -1,10 +1,10 @@
 import pygame
 import warnings
-from constants import *
-from circleshape import *
-from player import *
-from asteroidfield import *
-from shot import *
+from .circleshape import *
+from .player import *
+from .asteroidfield import *
+from .shot import *
+from .constants import *
 
 warnings.filterwarnings("ignore", message = ".*known.*")
 
