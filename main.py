@@ -15,7 +15,6 @@ def main():
     print("Screen height: 720")
     
     pygame.init()
-    #pygame.mixer.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     pygame.font.init()
@@ -41,7 +40,13 @@ def main():
 
     score = 0
 
-    #sound = pygame.mixer.Sound("hitmarker_2.mp3")
+    try:
+        pygame.mixer.init()
+        sound = pygame.mixer.Sound("hitmarker_2.mp3")
+        sound.set_volume(0.25)
+    except Exception as e:
+        print(f"Error loading sound: {e}")
+        sound = None
 
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
@@ -58,7 +63,8 @@ def main():
                     s.kill()
                     a.split(dt)
                     score += 5
-                    #sound.play()
+                    if sound is not None:
+                        sound.play()
         screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
         pygame.display.flip()
         for event in pygame.event.get():
