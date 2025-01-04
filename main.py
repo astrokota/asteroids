@@ -6,8 +6,6 @@ from player import *
 from asteroidfield import *
 from shot import *
 
-warnings.filterwarnings("ignore", message = ".*known.*")
-
 def main():
 
     print("Starting asteroids!")
