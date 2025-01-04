@@ -48,3 +48,5 @@ class Asteroid(CircleShape):
         asteroid1.velocity = min_angle * 1.2
         asteroid2.velocity = max_angle * 1.2
         asteroids.add(asteroid1, asteroid2)
+
+    
