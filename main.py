@@ -14,6 +14,9 @@ def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    pygame.font.init()
+    font = pygame.font.SysFont("ubuntusans", 36)
+
     clock = pygame.time.Clock()
     dt = 0
 
@@ -32,6 +35,8 @@ def main():
     player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2, shots_group=shots)
     asteroidfield = AsteroidField()
 
+    score = 0
+
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
         for d in drawable:
@@ -46,6 +51,8 @@ def main():
                 if s.check_collision(a):
                     s.kill()
                     a.split()
+                    score += 5
+        screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
