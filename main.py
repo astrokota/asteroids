@@ -41,8 +41,11 @@ def main():
 
     #sound = pygame.mixer.Sound("hitmarker_2.mp3")
 
+    game_background = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroids_background.jpg")
+
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
+        screen.blit(game_background, (10, 10))
         for d in drawable:
             d.draw(screen)
         for u in updatable:
