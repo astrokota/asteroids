@@ -45,7 +45,7 @@ def main():
 
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
-        screen.blit(game_background, (10, 10))
+        screen.blit(game_background, (0, 0))
         for d in drawable:
             d.draw(screen)
         for u in updatable:
