@@ -18,8 +18,9 @@ def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     pygame.font.init()
-    font = pygame.font.SysFont("ubuntusans", 36)
-    button_font = pygame.font.SysFont("ubuntusans", 30)
+    font1 = pygame.font.SysFont("ubuntusans", 36)
+    font2 = pygame.font.SysFont("UbuntuSans-Italic", 160)
+    button_font = pygame.font.SysFont("DejaVuSansMono-Oblique", 60)
 
     clock = pygame.time.Clock()
     dt = 0
@@ -62,18 +63,18 @@ def main():
     game_over = False
 
     def show_game_over():
-        game_over_text = font.render("Game Over!", True, (153, 51, 255))
-        retry_text = button_font.render("Retry", True, (0, 204, 0))
-        quit_text = button_font.render("Quit", True, (255, 51, 51))
+        game_over_text = font2.render("GAME OVER!", True, (153, 51, 255))
+        retry_text = button_font.render("RETRY", True, (0, 0, 0))
+        quit_text = button_font.render("QUIT", True, (0, 0, 0))
 
         game_over_rect = game_over_text.get_rect(center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4))
-        retry_rect = retry_text.get_rect(center = (SCREEN_WIDTH // 2, SCREEN_WIDTH // 2))
-        quit_rect = quit_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+        retry_rect = retry_text.get_rect(center = (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        quit_rect = quit_text.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 150))
 
-        screen.fill((255, 255, 255))
+        screen.fill((0, 0, 0))
         screen.blit(game_over_text, game_over_rect)
-        pygame.draw.rect(screen, (153, 255, 153), retry_rect.inflate(20, 20))
-        pygame.draw.rect(screen, (153, 255, 153), quit_rect.inflate(20, 20))
+        pygame.draw.rect(screen, (153, 255, 153), retry_rect.inflate(40, 40))
+        pygame.draw.rect(screen, (153, 255, 153), quit_rect.inflate(45, 45))
         screen.blit(retry_text, retry_rect)
         screen.blit(quit_text, quit_rect)
 
@@ -107,7 +108,7 @@ def main():
             elapsed_time = pygame.time.get_ticks() - start_time
             minutes = elapsed_time // 60000
             seconds = (elapsed_time % 60000) // 1000
-            timer_text = font.render(f"Time: {minutes:02}:{seconds:02}", True, (255, 255, 255))
+            timer_text = font1.render(f"Time: {minutes:02}:{seconds:02}", True, (255, 255, 255))
             screen.blit(timer_text, (1090, 10))
             pygame.key.get_pressed()
             for d in drawable:
@@ -128,7 +129,7 @@ def main():
                         score += 5
                         if sound is not None:
                             sound.play()
-            screen.blit(font.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
+            screen.blit(font1.render(f"Score: {score}", True, (255, 255, 255)), (10, 10))
         pygame.display.flip()
         dt = clock.tick(60)
         dt = dt / 1000
