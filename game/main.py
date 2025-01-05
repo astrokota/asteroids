@@ -48,8 +48,11 @@ def main():
         print(f"Error loading sound: {e}")
         sound = None
 
+    game_background = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroids_background.jpg")
+
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))
+        screen.blit(game_background, (0, 0))
         for d in drawable:
             d.draw(screen)
         for u in updatable:
@@ -61,7 +64,7 @@ def main():
             for s in player.shots:
                 if s.check_collision(a):
                     s.kill()
-                    a.split(dt)
+                    a.split(dt, asteroids)
                     score += 5
                     if sound is not None:
                         sound.play()

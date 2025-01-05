@@ -10,14 +10,21 @@ class Asteroid(CircleShape):
         self.color_r = random.uniform(50, 255)
         self.color_g = random.uniform(50, 255)
         self.color_b = random.uniform(50, 255)
-
+        
         self.killed_at = None
         self.killed_image = pygame.image.load(get_asset_path("cod_hitmarker.png"))
         self.killed_image = pygame.transform.scale(self.killed_image, (100, 100))
-       
+
+        self.original_image = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroid_rock.jpg")
+        self.scale_factor = self.radius / ASTEROID_BASE_RADIUS
+        self.image = pygame.transform.scale(self.original_image, (int(self.original_image.get_width() * self.scale_factor), int(self.original_image.get_height() * self.scale_factor)))
+        self.rect = self.image.get_rect(center = self.position)
+
     def draw(self, screen):
         if not self.killed_at:
-            pygame.draw.circle(screen, (self.color_r, self.color_g, self.color_b), self.position, self.radius)
+            rotated_image = pygame.transform.rotate(self.image, -self.radius)
+            image_rect = rotated_image.get_rect(center=self.position)
+            screen.blit(rotated_image, image_rect.topleft)
         else:
             screen.blit(self.killed_image, (self.position.x, self.position.y))
 
@@ -28,7 +35,7 @@ class Asteroid(CircleShape):
             return
         self.position += self.velocity * dt
 
-    def split(self, dt):
+    def split(self, dt, asteroids):
         self.killed_at = dt
         if self.radius <= ASTEROID_MIN_RADIUS:
             return
@@ -40,3 +47,6 @@ class Asteroid(CircleShape):
         asteroid2 = Asteroid(self.position.x, self.position.y, new_radius)
         asteroid1.velocity = min_angle * 1.2
         asteroid2.velocity = max_angle * 1.2
+        asteroids.add(asteroid1, asteroid2)
+
+    
