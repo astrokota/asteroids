@@ -56,9 +56,9 @@ def main():
         pygame.Surface.fill(screen, (0, 0, 0))
         screen.blit(game_background, (0, 0))
         elapsed_time = pygame.time.get_ticks() - start_time
-        seconds = elapsed_time // 1000
-        milliseconds = elapsed_time % 1000
-        timer_text = font.render(f"Time: {seconds}:{milliseconds // 10:02d}", True, (255, 255, 255))
+        minutes = elapsed_time // 60000
+        seconds = (elapsed_time % 60000) // 1000
+        timer_text = font.render(f"Time: {minutes:02}:{seconds:02}", True, (255, 255, 255))
         screen.blit(timer_text, (1090, 10))
         for d in drawable:
             d.draw(screen)
