@@ -121,6 +121,7 @@ def main():
                     print(f"Final score: {score}")
                     print(f"Total time: {minutes:02}:{seconds:02}")
                     game_over = True
+                    break
             for s in player.shots:
                 for a in asteroids:
                     if s.check_collision(a):
