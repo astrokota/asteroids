@@ -15,7 +15,7 @@ class Asteroid(CircleShape):
         self.killed_image = pygame.image.load(get_asset_path("cod_hitmarker.png"))
         self.killed_image = pygame.transform.scale(self.killed_image, (100, 100))
 
-        self.original_image = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroid_rock.jpg")
+        self.original_image = pygame.image.load(get_asset_path("asteroid_rock.png"))
         self.scale_factor = self.radius / ASTEROID_BASE_RADIUS
         self.image = pygame.transform.scale(self.original_image, (int(self.original_image.get_width() * self.scale_factor), int(self.original_image.get_height() * self.scale_factor)))
         self.rect = self.image.get_rect(center = self.position)

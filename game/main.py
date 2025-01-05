@@ -48,7 +48,7 @@ def main():
         print(f"Error loading sound: {e}")
         sound = None
 
-    game_background = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroids_background.jpg")
+    game_background = pygame.image.load(get_asset_path("asteroids_background.jpg"))
 
     while True:
         pygame.Surface.fill(screen, (0, 0, 0))

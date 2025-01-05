@@ -1,3 +1,4 @@
+from .asset_helper import get_asset_path
 from .constants import *
 from .circleshape import *
 from .shot import *
@@ -8,7 +9,7 @@ class Player(CircleShape):
         self.rotation = 0
         self.shots = shots_group
         self.timer = 0
-        self.original_image = pygame.image.load("/home/dakotamitchell/workspace/github.com/astrokota/asteroids/ship.png")
+        self.original_image = pygame.image.load(get_asset_path("ship.png"))
         self.scale_factor = 0.08
         self.image = pygame.transform.scale(self.original_image, (int(self.original_image.get_width() * self.scale_factor), int(self.original_image.get_height() * self.scale_factor)))
         self.rect = self.image.get_rect(center = self.position)
