@@ -67,6 +67,8 @@ def main():
         for a in asteroids:
             if player.check_collision(a):
                 print("Game over!")
+                print(f"Final score: {score}")
+                print(f"Total time: {minutes:02}:{seconds:02}")
                 return
             for s in player.shots:
                 if s.check_collision(a):
