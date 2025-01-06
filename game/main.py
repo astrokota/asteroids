@@ -1,12 +1,25 @@
+import os
 import pygame
 import warnings
 
 from .asset_helper import get_asset_path
 from .circleshape import *
+from datetime import date
 from .player import *
 from .asteroidfield import *
 from .shot import *
 from .constants import *
+
+def save_game_data(score, minutes, seconds):
+    file_path = "/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroids_save_data/asteroids_save_data.txt"
+    today = date.today()
+    directory = os.path.dirname(file_path)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    with open(file_path, "a") as file:
+        file.write(f"Date: {today}, Score: {score}, Time: {minutes:02}:{seconds:02}\n")
+
+
 
 def main():
 
@@ -101,6 +114,7 @@ def main():
                         player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2, shots_group = shots)
                         asteroidfield = AsteroidField()
                     elif quit_rect.collidepoint(mouse_x, mouse_y):
+                        save_game_data(score, minutes, seconds)
                         running = False
         if not game_over:
             pygame.Surface.fill(screen, (0, 0, 0))
