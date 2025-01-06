@@ -3,6 +3,7 @@ import pygame
 import warnings
 
 from .asset_helper import get_asset_path
+from .asset_helper import get_save_data
 from .circleshape import *
 from datetime import date
 from .player import *
@@ -11,15 +12,10 @@ from .shot import *
 from .constants import *
 
 def save_game_data(score, minutes, seconds):
-    file_path = "/home/dakotamitchell/workspace/github.com/astrokota/asteroids/asteroids_save_data/asteroids_save_data.txt"
+    file_path = get_save_data()
     today = date.today()
-    directory = os.path.dirname(file_path)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
     with open(file_path, "a") as file:
         file.write(f"Date: {today}, Score: {score}, Time: {minutes:02}:{seconds:02}\n")
-
-
 
 def main():
 
