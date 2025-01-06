@@ -104,6 +104,7 @@ def main():
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_x, mouse_y = pygame.mouse.get_pos() 
                     if retry_rect.collidepoint(mouse_x, mouse_y):
+                        save_game_data(score, minutes, seconds)
                         game_over = False
                         score = 0
                         start_time = pygame.time.get_ticks()
