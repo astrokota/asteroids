@@ -1,7 +1,8 @@
-from .game import run_game
+from .game import Game
 
 def main():
-    run_game()
+    game = Game()
+    game.run_game()
 
 if __name__ == "__main__":
     main()
