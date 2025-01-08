@@ -1,24 +1,24 @@
 from datetime import date
+from game.scoring.score import Score
 import pygame
 
-from .asset_helper import get_asset_path, get_save_data
+from .asset_helper import get_asset_path
 from .asteroidfield import *
 from .circleshape import *
 from .constants import *
 from .player import *
 from .shot import *
+from .scoring.score_saver import save_game_data
 
 class Game:
     def __init__(self):
         self.screen = None
-        self.minutes = None
-        self.seconds = None
-        self.score = None
         self.updatable = None
         self.drawable = None
         self.asteroids = None
         self.shots = None
         self.player = None
+        self.score = None
 
     def run_game(self):
         
@@ -49,8 +49,6 @@ class Game:
         self.player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2, shots_group=self.shots)
         self.asteroidfield = AsteroidField()
 
-        self.score = 0
-
         try:
             pygame.mixer.init()
             sound = pygame.mixer.Sound(get_asset_path("hitmarker_2.mp3"))
@@ -67,6 +65,8 @@ class Game:
 
         self.start_time = pygame.time.get_ticks()
 
+        self.score = Score(points = 0, time = self.start_time)
+
         self.running = True
         self.game_over = False
 
@@ -74,14 +74,17 @@ class Game:
             for event in pygame.event.get():
                 self.handle_game_event(event)
             if not self.game_over:
+                # Draw screen + set background
                 pygame.Surface.fill(self.screen, (0, 0, 0))
                 self.screen.blit(game_background, (0, 0))
-                elapsed_time = pygame.time.get_ticks() - self.start_time
-                self.minutes = elapsed_time // 60000
-                self.seconds = (elapsed_time % 60000) // 1000
-                timer_text = font1.render(f"Time: {self.minutes:02}:{self.seconds:02}", True, (255, 255, 255))
+
+                # Update scoring for time
+                self.score.time = pygame.time.get_ticks() - self.start_time
+
+                # Show current time on screen
+                timer_text = font1.render(f"Time: {self.get_friendly_time_str()}", True, (255, 255, 255))
                 self.screen.blit(timer_text, (1090, 10))
-                pygame.key.get_pressed()
+
                 for d in self.drawable:
                     d.draw(self.screen)
                 for u in self.updatable:
@@ -89,8 +92,8 @@ class Game:
                 for a in self.asteroids:
                     if self.player.check_collision(a):
                         print("Game over!")
-                        print(f"Final score: {self.score}")
-                        print(f"Total time: {self.minutes:02}:{self.seconds:02}")
+                        print(f"Final score: {self.score.points}")
+                        print(f"Total time: {self.get_friendly_time_str()}")
                         self.game_over = True
                         break
                 for s in self.player.shots:
@@ -98,10 +101,10 @@ class Game:
                         if s.check_collision(a):
                             s.kill()
                             a.split(dt, self.asteroids)
-                            self.score += 5
+                            self.score.points += 5
                             if sound is not None:
                                 sound.play()
-                self.screen.blit(font1.render(f"Score: {self.score}", True, (255, 255, 255)), (10, 10))
+                self.screen.blit(font1.render(f"Score: {self.score.points}", True, (255, 255, 255)), (10, 10))
             pygame.display.flip()
             dt = clock.tick(60)
             dt = dt / 1000
@@ -137,10 +140,10 @@ class Game:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_x, mouse_y = pygame.mouse.get_pos() 
                 if retry_rect.collidepoint(mouse_x, mouse_y):
-                    self.save_game_data()
+                    save_game_data(self.score)
                     self.game_over = False
-                    self.score = 0
                     self.start_time = pygame.time.get_ticks()
+                    self.score = Score(points = 0, time = self.start_time)
                     self.updatable.empty()
                     self.drawable.empty()
                     self.asteroids.empty()
@@ -148,11 +151,8 @@ class Game:
                     self.player = Player(x = SCREEN_WIDTH / 2, y = SCREEN_HEIGHT / 2, shots_group = self.shots)
                     self.asteroidfield = AsteroidField()
                 elif quit_rect.collidepoint(mouse_x, mouse_y):
-                    self.save_game_data()
+                    save_game_data(self.score)
                     self.running = False
 
-    def save_game_data(self):
-        file_path = get_save_data()
-        today = date.today()
-        with open(file_path, "a") as file:
-            file.write(f"Date: {today}, Score: {self.score}, Time: {self.minutes:02}:{self.seconds:02}\n")
+    def get_friendly_time_str(self):
+        return f"{self.score.time // 60000:02}:{(self.score.time % 60000) // 1000:02}"
