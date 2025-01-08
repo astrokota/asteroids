@@ -1,8 +1,8 @@
 import json
 from typing import List
 
-from .score import Score
-from ..asset_helper import get_save_data_path
+from game.asset_helper import get_save_data_path
+from game.scoring.score import Score
 
 def read_save_data() -> List[Score]:
     data = []

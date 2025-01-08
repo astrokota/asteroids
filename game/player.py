@@ -1,7 +1,7 @@
-from .asset_helper import get_asset_path
-from .constants import *
-from .circleshape import *
-from .shot import *
+from game.asset_helper import get_asset_path
+from game.constants import *
+from game.circleshape import *
+from game.shot import *
 
 class Player(CircleShape):
     def __init__(self, x, y, shots_group):

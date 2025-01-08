@@ -1,14 +1,13 @@
-from datetime import date
-from game.scoring.score import Score
 import pygame
 
-from .asset_helper import get_asset_path
-from .asteroidfield import *
-from .circleshape import *
-from .constants import *
-from .player import *
-from .shot import *
-from .scoring.score_saver import save_game_data
+from game.asset_helper import get_asset_path
+from game.asteroidfield import *
+from game.circleshape import *
+from game.constants import *
+from game.player import *
+from game.shot import *
+from game.scoring.score import Score
+from game.scoring.score_saver import save_game_data
 
 class Game:
     def __init__(self):
