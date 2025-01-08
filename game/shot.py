@@ -1,6 +1,6 @@
-from .asset_helper import get_asset_path
-from .circleshape import *
-from .constants import *
+from game.asset_helper import get_asset_path
+from game.circleshape import *
+from game.constants import *
 
 class Shot(CircleShape):
     def __init__(self, x, y, radius):

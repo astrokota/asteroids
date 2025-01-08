@@ -1,8 +1,8 @@
 import pygame
 import random
-from .circleshape import *
-from .constants import *
-from .asset_helper import get_asset_path
+from game.circleshape import *
+from game.constants import *
+from game.asset_helper import get_asset_path
 
 class Asteroid(CircleShape):
     def __init__(self, x, y, radius):
